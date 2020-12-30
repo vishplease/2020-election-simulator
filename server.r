@@ -66,12 +66,30 @@ function(input, output, session) {
         
         choice_select <- input$choices1_update_input #SELECT CHOICE
         
+        # q_select <- "What is your age?"
+        # choice_select <- "18-29"
+        
         plot <- poll %>% 
-            filter(question == q_select,
-                   choices == choice_select) %>% 
-            mutate(winner = ifelse(is.na(Trump) == FALSE, ifelse(Trump-Biden > 0, "Trump", "Biden"), "Unknown")) %>% 
+            filter(question == q_select, choices == choice_select) %>% 
+            mutate(winner = ifelse(is.na(Trump) == FALSE, ifelse(Trump-Biden > 1, "Trump", "Biden"), "Unknown")) %>% 
             mutate(winner = factor(winner, levels = c("Trump", "Unknown", "Biden"))) %>% 
-            select(-Biden, -Trump)
+            mutate(margin = ifelse(is.na(Trump) == FALSE, Biden-Trump, NA)) %>% 
+            mutate(marginfactor = case_when(margin > 20 ~ "Biden >20%",
+                                            margin > 10 ~ "Biden 11-20%",
+                                            margin > 0 ~ "Biden 1-10%",
+                                            margin >= -10 ~ "Trump 1-10%",
+                                            margin >= -20 ~ "Trump 11-20%",
+                                            margin < -20 ~ "Trump >20%",
+                                            TRUE ~ "Unknown"))
+        
+        plot$marginfactor <- factor(plot$marginfactor, levels = c("Trump >20%", 
+                                                                  "Trump 11-20%",
+                                                                  "Trump 1-10%",
+                                                                  "Unknown", 
+                                                                  "Biden 1-10%",
+                                                                  "Biden 11-20%", 
+                                                                  "Biden >20%"))
+        
         
         ####################################################
         # MAP
@@ -79,27 +97,26 @@ function(input, output, session) {
         
         
         map <- plot %>%
-            group_by(state, winner, votes) %>%
+            group_by(state, marginfactor, votes, pct_voters) %>%
             summarize() %>% 
-            plot_usmap(data = ., exclude = c("DC"), values = "winner", labels = TRUE) +
-            theme_minimal() +
-            scale_fill_manual("Candidate", values = c("Trump" = "tomato", "Biden" = "dodgerblue3", "Unknown" = "grey")) +
+            plot_usmap(data = ., exclude = c("DC"), values = "marginfactor", labels = TRUE) +
+            scale_fill_manual("Margin",
+                              values = c("Trump >20%" = "#FF0803", 
+                                         "Trump 11-20%" = "#FF5B57",
+                                         "Trump 1-10%" = "#FFADAB",
+                                         "Unknown" = "grey", 
+                                         "Biden 1-10%" = "#84B4FC",
+                                         "Biden 11-20%" = "#6178F4", 
+                                         "Biden >20%" = "#1A00EF")) +
             labs(title = q_select,
                  subtitle = choice_select) +
-            theme(legend.position = "right",
-                  panel.grid.major = element_blank(),
-                  panel.grid.minor = element_blank(),
-                  axis.title.y = element_blank(),
-                  axis.title.x = element_blank(),
-                  axis.text.y = element_blank(),
-                  axis.text.x = element_blank(),
-                  plot.title = element_text(hjust = 0.5),
-                  plot.subtitle = element_text(hjust = 0.5))
+            theme(legend.position = c(1, .5),
+                  plot.title = element_text(hjust = 0.5, size = 15),
+                  plot.subtitle = element_text(hjust = 0.5, size = 12))
         
         map$layers[[2]]$aes_params$size <- 2
         
         map
-        
         
         }) 
     
@@ -131,14 +148,16 @@ function(input, output, session) {
             ggplot(aes(y = "results", x = votes, fill = winner)) +
             geom_bar(stat = "identity", position = "stack") +
             theme_minimal() +
-            scale_fill_manual("winner", values = c("Trump" = "tomato", "Biden" = "dodgerblue3", "Unknown" = "grey")) +
-            labs(title = "Electoral Votes") +
+            scale_fill_manual("winner", values = c("Trump" = "#FF0803", "Biden" = "#1A00EF", "Unknown" = "grey")) +
+            labs(title = "Electoral Votes If Only This Group Voted",
+                 subtitle = "Allocates full votes from each state to candidate who polled higher with specified group") +
             theme(legend.position = "none",
                   axis.title.y = element_blank(),
                   axis.title.x = element_blank(),
                   axis.text.y = element_blank(),
                   panel.grid.major.y = element_blank(),
-                  plot.title = element_text(hjust = 0.5)
+                  plot.title = element_text(hjust = 0.5, size = 15),
+                  plot.subtitle = element_text(hjust = 0.5, size = 10)
             ) +
             geom_text(aes(label = paste0(as.character(winner), "\n", votes)), size = 3, color = "white", position = position_stack(vjust = 0.5))
         

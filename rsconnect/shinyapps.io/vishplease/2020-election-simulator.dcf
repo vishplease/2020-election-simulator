@@ -1,0 +1,13 @@
+name: 2020-election-simulator
+title:
+username:
+account: vishplease
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3433544
+bundleId: 4043017
+url: https://vishplease.shinyapps.io/2020-election-simulator/
+when: 1609350226.92052
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: README.md|code/data_clean.R|code/scraper.R|data/.DS_Store

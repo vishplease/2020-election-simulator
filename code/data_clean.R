@@ -47,6 +47,13 @@ poll[31879,2] <- "Which type of vote did you cast?"
 poll[31882,1] <- 13
 poll[31882,2] <- "Is this election your first time ever voting, or not?"
 
+poll[27434,1] <- 123
+poll[31882,2] <- "What is your racial or ethnic heritage? And the size of the place where you live?"
+poll[27428:27433,8] <- 6
+
+
+
+
 ######################################################
 # SELECT QUESTIONS FOR MAP
 ######################################################
@@ -78,6 +85,8 @@ top_qs <- poll %>%
          grepl("Do you think the coronavirus in the United States is:_3", unique_q) == FALSE,
          grepl("House of Representatives", unique_q) == FALSE,
          grepl("Generally speaking, would you say things in this country", unique_q) == FALSE,
+         grepl("labor union", unique_q) == FALSE,
+         grepl("heritage? And the size", unique_q) == FALSE,
          grepl("Have you missed out on a major event, like a wedding or funeral, because of the coronavirus pandemic", unique_q) == FALSE,
          grepl("Have you or someone in your household lost a job or income because of the coronavirus pandemic?", unique_q) == FALSE,
          unique_q != "Do you consider yourself to be a liberal, moderate, or conservative?_5",
@@ -90,7 +99,7 @@ top_qs <- poll %>%
          unique_q != "What was your total household income in 2019?_2",
          unique_q != "What was your total household income in 2019?_3",
          unique_q != "Which best describes your level of education?_2",
-         unique_q != "Which of the following best describes the area where you live?_3",
+         unique_q != "Which of the following best describes the area where you live?_4",
          unique_q != "Do you or does any other member of your household own a handgun, rifle, shotgun, or any other kind of firearm?_3",
          unique_q != "How old are you? And what is your gender?_5",
          unique_q != "What is your present religion, if any?_4",
@@ -101,11 +110,12 @@ top_qs <- poll %>%
          grepl("comes close", unique_q) == FALSE,
          grepl("Roe", unique_q) == FALSE,
          grepl("Overall, do you approve or disapprove of the way Donald Trump", unique_q) == FALSE,
-         grepl("describe", unique_q) == FALSE,
+         grepl("Would you describe your vote", unique_q) == FALSE,
          grepl("shake up", unique_q) == FALSE,
          grepl("interference", unique_q) == FALSE,
          grepl("higher priority", unique_q) == FALSE,
          grepl("What is your political party", unique_q) == FALSE,
+         grepl("Which one of the following statements", unique_q) == FALSE,
          grepl("Hillary", unique_q) == FALSE,
          grepl("first time", unique_q) == FALSE,
          grepl("first time", unique_q) == FALSE,
@@ -140,11 +150,13 @@ poll <- poll %>%
   filter(unique_q %in% top_qs$unique_q) %>% 
   select(-q_id) %>% 
   left_join(top_qs, by = "unique_q") %>% 
-  select(-unique_q, -options, -pct_voters) %>% 
+  select(-unique_q, -options) %>% 
   left_join(states, by = "state")
 
 poll <- poll %>% 
   mutate(question = ifelse(question == "Are you:", "Marital Status", question))
+
+
 
 fwrite(poll, "data/poll_viz.csv")
 

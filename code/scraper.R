@@ -119,6 +119,12 @@ if(state == "oklahoma") {
   #choices[19,2] <- 0.3 #original 0.28
 }
 
+if(state == "south-carolina") {
+  choices[346,2] <- .03 #original 0
+  choices[356,2] <- .02 #original 0
+  
+}
+
 # ASSIGN UNIQUE ID TO EACH QUESTION
 
 index <- 1
@@ -187,6 +193,12 @@ if(state == "hawaii") {
 
 if(state == "oklahoma") {
   choices[245,3] <- 85 
+}
+
+if(state == "south-carolina") {
+  choices[346,2] <- 0 
+  choices[356,2] <- 0
+  
 }
 
 ###################################################

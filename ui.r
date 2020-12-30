@@ -1,6 +1,6 @@
 ui <- fluidPage(
   
-  titlePanel("Election Result Simulator"),
+  titlePanel("2020 Election Simulator"),
   
   sidebarLayout(
     
@@ -25,7 +25,8 @@ ui <- fluidPage(
     ########################################
     
     mainPanel(
-      
+      h4("This map highlights the specified group's political preferences in each state and the candidate's corresponding margin of victory"),
+      hr(),
       shinycssloaders::withSpinner(plotOutput("map1"), type = 4),
       shinycssloaders::withSpinner(plotOutput("barchart1"), type = 0),
       hr(),

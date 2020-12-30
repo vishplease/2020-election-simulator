@@ -27345,22 +27345,22 @@ q_id,question,choices,pct_voters,Trump,Biden,state
 103,"What is your race, age and gender?",Nonwhite 45+ men,0.06,25,75,south-carolina
 103,"What is your race, age and gender?",Non-hite 45+ women,0.11,8,92,south-carolina
 103,"What is your race, age and gender?",All others,0,,,south-carolina
-103,"What is your race, age and gender?",Mexican,0,,,south-carolina
-103,"What is your race, age and gender?",Puerto Rican,0.01,,,south-carolina
-103,"What is your race, age and gender?",Cuban,0,,,south-carolina
-103,"What is your race, age and gender?",Dominican,0,,,south-carolina
-103,"What is your race, age and gender?",Salvadoran,0,,,south-carolina
-103,"What is your race, age and gender?",Other Central American,0,,,south-carolina
-103,"What is your race, age and gender?",South American,0,,,south-carolina
-103,"What is your race, age and gender?",Spanish,0,,,south-carolina
-103,"What is your race, age and gender?",Other country,0,,,south-carolina
-104,Which of the following best describes you and your family’s heritage?,Not Hispanic,0.98,55,43,south-carolina
 104,Which of the following best describes you and your family’s heritage?,Mexican,0,,,south-carolina
 104,Which of the following best describes you and your family’s heritage?,Puerto Rican,0.01,,,south-carolina
 104,Which of the following best describes you and your family’s heritage?,Cuban,0,,,south-carolina
-104,Which of the following best describes you and your family’s heritage?,Central American,0,,,south-carolina
+104,Which of the following best describes you and your family’s heritage?,Dominican,0,,,south-carolina
+104,Which of the following best describes you and your family’s heritage?,Salvadoran,0,,,south-carolina
+104,Which of the following best describes you and your family’s heritage?,Other Central American,0,,,south-carolina
 104,Which of the following best describes you and your family’s heritage?,South American,0,,,south-carolina
-104,Which of the following best describes you and your family’s heritage?,Other,0,,,south-carolina
+104,Which of the following best describes you and your family’s heritage?,Spanish,0,,,south-carolina
+104,Which of the following best describes you and your family’s heritage?,Other country,0,,,south-carolina
+104,Which of the following best describes you and your family’s heritage?,Not Hispanic,0.98,55,43,south-carolina
+105,Which of the following best describes you and your family’s heritage?,Mexican,0,,,south-carolina
+105,Which of the following best describes you and your family’s heritage?,Puerto Rican,0.01,,,south-carolina
+105,Which of the following best describes you and your family’s heritage?,Cuban,0,,,south-carolina
+105,Which of the following best describes you and your family’s heritage?,Central American,0,,,south-carolina
+105,Which of the following best describes you and your family’s heritage?,South American,0,,,south-carolina
+105,Which of the following best describes you and your family’s heritage?,Other,0,,,south-carolina
 105,Which of the following best describes you and your family’s heritage?,Not Hispanic,0.98,55,43,south-carolina
 106,"What is your present religion, if any?",Protestant/Other Christian,0.64,63,35,south-carolina
 106,"What is your present religion, if any?",Catholic,0.12,60,40,south-carolina
